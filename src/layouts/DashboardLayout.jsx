@@ -1,7 +1,15 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import ProfastLogo from "../pages/shared/ProfastLogo/ProfastLogo";
-import { FiPackage, FiCreditCard, FiSearch, FiUser } from 'react-icons/fi';
+
+import {
+    FiPackage,
+    FiCreditCard,
+    FiSearch,
+    FiUser,
+    FiUsers,       // For Active Riders
+    FiUserCheck    // For Pending Riders
+} from "react-icons/fi";
 
 const DashboardLayout = () => {
     return (
@@ -72,6 +80,15 @@ const DashboardLayout = () => {
                         <FiUser className="text-lg" />
                         <Link to="/dashboard/profile">Update Profile</Link>
                     </li>
+                    <li className="flex items-center space-x-2">
+                        <FiUsers className="text-lg" />
+                        <Link to="/dashboard/active-riders">Active Riders</Link>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                        <FiUserCheck className="text-lg" />
+                        <Link to="/dashboard/pending-riders">Pending Riders</Link>
+                    </li>
+
 
                 </ul>
             </div>

@@ -1,22 +1,36 @@
 import React from 'react'
 import useAuth from '../../../hooks/useAuth'
 import { useLocation, useNavigate } from 'react-router';
+import useAxios from '../../../hooks/useAxios';
 
 const SocialLogin = () => {
+    const axiosInstance = useAxios();
     const location = useLocation();
     const from = location.state?.from || '/';
     const navigate = useNavigate()
     const { googleSignIn } = useAuth();
-    const handleGooglesignIn = () => {
-        googleSignIn()
-            .then(result => {
-                console.log(result.user)
-                navigate(from)
-            })
-            .then(err => {
-                console.log(err)
-            })
-    }
+    const handleGooglesignIn = async () => {
+        try {
+            const result = await googleSignIn();
+            const user = result.user;
+
+            const userInfo = {
+                email: user?.email,
+                role: 'user',
+                created_at: new Date().toISOString(),
+                last_log_in: new Date().toISOString(),
+            };
+
+            // Check or insert user in database
+            const res = await axiosInstance.post('/users', userInfo);
+            console.log(res.data);
+
+            navigate(from);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     return (
         <div>
             <p>OR</p>

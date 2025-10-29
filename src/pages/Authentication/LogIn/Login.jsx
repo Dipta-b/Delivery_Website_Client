@@ -6,7 +6,7 @@ import SocialLogin from "../socialLogin/SocialLogin"; // Optional — you can re
 import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
-  const { user, createUser } = useAuth();
+  const { user, signIn } = useAuth();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Login = () => {
 
   // This will be triggered when the form is submitted
   const onSubmit = async (data) => {
-    createUser(data.email, data.password)
+    signIn(data.email, data.password)
       .then(result => {
         const loggedUser = result.user;
         navigate(from)
